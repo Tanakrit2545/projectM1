@@ -1,0 +1,116 @@
+Container styling
+.container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Card styling */
+  .card {
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  /* Card header styling */
+  .card-header {
+    background: linear-gradient(90deg, rgba(255,204,0,1) 0%, rgba(255,159,0,1) 100%);
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card-header h6 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Buttons styling */
+  .btn {
+    border-radius: 20px;
+    padding: 8px 16px;
+  }
+  
+  .btn.bg-gradient-success {
+    background: linear-gradient(90deg, rgba(56, 239, 125, 1) 0%, rgba(40, 189, 104, 1) 100%);
+    color: #fff;
+    margin-right: 20px;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+    
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  /* Table styling */
+  .table {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px;
+    vertical-align: middle;
+  }
+  
+  .table th {
+    background-color: #f1f1f1;
+  }
+  
+  .table thead th {
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  /* Image styling */
+  .avatar {
+    border-radius: 10px;
+    width: 150px; /* Increased from 50px to 150px */
+    height: 150px; /* Increased from 50px to 150px */
+  }
+  
+  .d-flex {
+    display: flex;
+    align-items: center;
+  }
+  
+  .text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .text-xs {
+    font-size: 0.75rem;
+  }
+  
+  .font-weight-bolder {
+    font-weight: bolder;
+  }
+  
+  /* Miscellaneous */
+  .text-secondary {
+    color: #6c757d;
+  }
+  
+  .font-weight-bold {
+    font-weight: bold;
+  }
+  
+  .border-radius-lg {
+    border-radius: 0.5rem;
+  }
+  
+  .shadow-primary {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

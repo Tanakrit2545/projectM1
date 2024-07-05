@@ -1,0 +1,192 @@
+/* Filter container */
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.filter-input,
+.filter-select {
+  margin-right: 10px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Motorcycle card */
+.motorcycle-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  width: 300px;
+  display: inline-block;
+  vertical-align: top;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.motorcycle-card:hover {
+  transform: translateY(-5px);
+}
+
+.motorcycle-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.motorcycle-card h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.motorcycle-card p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #666;
+}
+
+.motorcycle-card button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.motorcycle-card button:hover {
+  background-color: #45a049;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #0056b3; /* Default hover color */
+}
+
+/* Specific button colors */
+.pagination button:first-child {
+  background-color: #dc3545; /* Red color for Previous button */
+}
+
+.pagination button:last-child {
+  background-color: #4CAF50; /* Green color for Next button */
+}
+
+/* Cart */
+.cart-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  height: 400px;
+  width: 1000px; /* Adjusted width */
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure proper spacing */
+}
+
+.cart-item:hover {
+  transform: translateY(-5px);
+}
+
+.cart-item img {
+  max-width: 500px;
+  height: auto;
+  margin-right: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #666;
+  flex-grow: 1;
+}
+
+.cart-item button {
+  padding: 8px 16px;
+  background-color: #f72323;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.cart-item button:hover {
+  background-color: #c82333;
+}
+
+/* Increment and Decrement Quantity buttons */
+.cart-item button:first-of-type {
+  background-color: #28a745; /* Green color for Increment button */
+}
+
+.cart-item button:nth-of-type(2) {
+  background-color: #373737; /* Red color for Decrement button */
+  margin-left: 3px;
+}
+
+.checkout-button {
+  padding: 12px 24px;
+  background-color: #42db3c; /* Blue color for Checkout button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  display: block;
+}
+
+.checkout-button:hover {
+  background-color: #189000;
+}
+
+.refresh-cart-button {
+  padding: 12px 24px;
+  background-color: #00c3ff; /* Red color for Refresh Cart button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  display: block;
+}
+
+.refresh-cart-button:hover {
+  background-color: #cc0000;
+}
+
+/* motorcycle.component.css */
+
+.qr-code {
+  width: 200px; /* Adjust width as needed */
+  height: 200; /* Maintain aspect ratio */
+}

@@ -1,0 +1,101 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="registration-form">
+	<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+	  <div class="col-lg-7 text-center text-lg-start">
+		<h1 class="display-4 fw-bold lh-1 mb-3">Register</h1>
+		<p class="col-lg-10 fs-4">ต้องสมัครสมาชิกก่อน ถึงจะใช้งานระบบได้นะจ๊ะ</p>
+	  </div>
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		</div>
+		<input formControlName="firstName" class="form-control" placeholder="First name" type="text">
+	  </div> <!-- form-group// -->
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		</div>
+		<input formControlName="lastName" class="form-control" placeholder="Last name" type="text">
+	  </div> <!-- form-group// -->
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+		<input formControlName="phone" class="form-control" placeholder="Phone number" type="text">
+	  </div> <!-- form-group// -->
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+		</div>
+		<input formControlName="age" class="form-control" placeholder="Age" type="text">
+	  </div> <!-- form-group// -->
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+		</div>
+		<select class="form-control" formControlName="roleId">
+		  <option selected="" value="">กรุณาเลือก Role</option>
+		  <option *ngFor="let item of roleList" [value]="item.id">{{ item.roleName }}</option>
+		</select>
+	  </div> <!-- form-group end.// -->
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		</div>
+		<input formControlName="userName" class="form-control" placeholder="Username" type="text">
+	  </div> <!-- form-group// -->
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+		<input formControlName="password" class="form-control" placeholder="Create password" type="password">
+	  </div> <!-- form-group// -->
+	  <div class="form-group input-group">
+		<div class="input-group-prepend">
+		  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+		<input formControlName="confirmPassword" class="form-control" placeholder="Repeat password" type="password">
+	  </div> <!-- form-group// -->
+	  <div>
+		<p *ngIf="isPassword">กรุณากรอก Password ให้ตรงกันกับด้านบนด้วยค่ะ</p>
+	  </div>
+	  <div class="form-group">
+		<button type="submit" class="btn btn-primary btn-block">Save Account</button>
+	  </div> <!-- form-group// -->
+	</div>
+  </form>
+  
+  <style>
+	.registration-form {
+	  background-image: url('./assets/images/Rocket.jpg');
+	  background-size: cover;
+	  background-position: center;
+	  padding: 20px;
+	  border-radius: 10px;
+	  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	  color: #ffffff;
+	}
+  
+	.registration-form h1,
+	.registration-form p {
+	  color: #4e00d5;
+	}
+  
+	.registration-form .input-group {
+	  margin-bottom: 15px;
+	}
+  
+	.registration-form .btn-primary {
+	  background-color: #fff700;
+	  border-color: #fff700;
+	}
+  
+	.registration-form .btn-primary:hover {
+	  background-color: #f7e700;
+	  border-color: #f7e700;
+	}
+  
+	.registration-form .form-control {
+	  border-radius: 25px; /* Adjust the value to control the roundness */
+	}
+  </style>
+  
