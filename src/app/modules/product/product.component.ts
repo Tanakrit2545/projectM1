@@ -1,7 +1,9 @@
+import { ProductService } from './../services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CallserviceService } from '../services/callservice.service';
-import { MotorcycleService } from '../services/motorcycle.service'; // Import MotorcycleService
+import { FormArray, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product',
@@ -10,78 +12,110 @@ import { MotorcycleService } from '../services/motorcycle.service'; // Import Mo
 })
 export class ProductComponent implements OnInit {
 
-  productForm: FormGroup;
-  productTypeList = [
-    { productTypeId: 1, productTypeName: 'Sport' },
-    { productTypeId: 2, productTypeName: 'Turing' },
-    { productTypeId: 3, productTypeName: 'Scooter' },
-    { productTypeId: 4, productTypeName: 'Naked' }
-  ];
-  isSubmit: boolean = false;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private callService: CallserviceService,
-    private motorcycleService: MotorcycleService // Inject MotorcycleService
+  constructor(private ProductService : ProductService,
+    private formBuilder : FormBuilder,
+    private router : Router,
+    private activated: ActivatedRoute,
   ) { }
 
+  productTypeList : any
+  selectedFiles : any = []
+  isSubmit: boolean = false;
+
   ngOnInit() {
-    this.productForm = this.formBuilder.group({
-      productTypeId: ['', Validators.required],
-      productName: ['', Validators.required],
-      productDesc: ['', Validators.required],
-      price: ['', [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]],
-      quantity: ['', Validators.required],
-      files: ['', Validators.required]
+    this.getProductTypeAll();
+  }
+
+  productForm = this.formBuilder.group({
+    productName : '',
+    productDesc : '',
+    price : parseFloat('0').toFixed(2),
+    quantity : 0,
+    productTypeId : '',
+    files : [],
+    productId : ''
+  })
+
+  getProductTypeAll(){
+    this.ProductService.getProductTypeAll().subscribe((res) => {
+      if(res.data){
+        this.productTypeList = res.data
+      }
     });
   }
 
-  onSubmit() {
+  onSubmit(){
     this.isSubmit = true;
-    if (this.productForm.valid) {
-      const newMotorcycle = {
-        id: Math.floor(Math.random() * 1000), // Generate a random id
-        motorcycleName: this.productForm.value.productName,
-        motorcycleDesc: this.productForm.value.productDesc,
-        price: this.productForm.value.price,
-        status: 'ว่าง',
-        image: './assets/images/default.jpg', // Default image
-        quantity: this.productForm.value.quantity
-      };
-      this.callService.saveMotorcycle(newMotorcycle).subscribe({
-        next: (response) => {
-          console.log('Motorcycle saved successfully!', response);
-          this.productForm.reset();
-          this.isSubmit = false;
-          this.motorcycleService.loadMotorcycles(); // Call loadMotorcycles() from MotorcycleService
-        },
-        error: (error) => {
-          console.error('Error saving motorcycle:', error);
+    console.log("xxx=>" , this.isSubmit)
+    if(this.validator()){
+      console.log("this.validator()>" , this.validator())
+      const data = this.productForm.value
+      this.ProductService.saveProduct(data).subscribe(res=>{
+        if(res.data){
+  
+          for(const file of this.selectedFiles[0]){
+            const formData = new FormData();
+            formData.append('file', file); 
+            this.ProductService.saveImage(formData, res.data).subscribe(res=>{
+              console.log("saveImage=>" , res.data)
+            })
+          }
+          if(res.data){
+            Swal.fire({
+              icon: 'success',
+              title: 'สำเร็จ!',
+              text: 'บันทึกข้อมูลสำเร็จ',
+              confirmButtonText: 'ตกลง',
+            }).then(res=>{
+              if(res.isConfirmed){
+                this.router.navigate(['/manage-product']);
+              }
+            })
+            
+          }else{
+            Swal.fire({
+              icon: 'warning',
+              title: 'บันทึกไม่สำเร็จ!',
+              text: 'กรุณาตรวจสอบข้อมูล ด้วยค่ะ',
+              confirmButtonText: 'ตกลง',
+            });
+          }
         }
-      });
-    } else {
-      this.setSubmit();
+      })
     }
+    
   }
-
   onFileChanged(event: any) {
-    const files = event.target.files;
-    if (files.length > 0) {
-      this.productForm.patchValue({ files: files });
+    this.selectedFiles.push(event.target.files);
+  }
+
+  onKeyPrice(event : any){
+    console.log("event=>", event.target.result)
+    return parseFloat(event.target.result).toFixed(2)
+  }
+
+
+  setDataDecimal(data : any){
+    this.productForm.patchValue({
+      price : parseFloat(data).toFixed(2),
+    })
+  }
+
+  fixDecimals(){
+    let value = this.productForm.value.price
+    return this.setDataDecimal(value);
+  }
+
+  validator() {
+    if (this.productForm.valid) {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  setSubmit() {
-    this.productForm.markAllAsTouched();
+  setSubmit(){
+    this.isSubmit = false;
   }
 
-  fixDecimals() {
-    let value = this.productForm.get('price')!.value;
-    if (value && value.indexOf('.') !== -1) {
-      const decimalPart = value.split('.')[1];
-      if (decimalPart.length > 2) {
-        this.productForm.patchValue({ price: parseFloat(value).toFixed(2) });
-      }
-    }
-  }
 }

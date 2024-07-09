@@ -1,64 +1,141 @@
+<style>
+  .container {
+      margin-top: 20px;
+  }
 
-	<div class="container">
-		<div class="col-md-12">
-		    <div class="card">
-		        <div class="card-body">
-		            <div class="row">
-		                <div class="col-md-12">
-		                    <h4>{{title}}</h4>
-		                    <hr>
-		                </div>
-		            </div>
-		            <div class="row">
-		                <div class="col-md-12">
-		                    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-                              <div class="form-group row">
-                                <label for="username" class="col-4 col-form-label">User Name*</label> 
-                                <div class="col-12">
-                                  <input formControlName="userName"  placeholder="Username" class="form-control here" required="required" type="text" readonly>
-                                </div>
+  .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-body {
+      padding: 20px;
+  }
+
+  h4 {
+      color: #333;
+      font-weight: bold;
+      text-align: center;
+  }
+
+  hr {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #eee;
+  }
+
+  label {
+      font-weight: bold;
+  }
+
+  input.form-control {
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 8px;
+  }
+
+  select.custom-select {
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 8px;
+  }
+
+  .btn-primary {
+      
+      background-color: #ffc800;
+      border-color: #007bff;
+  }
+
+  .btn-primary:hover {
+      background-color: #e79804;
+      border-color: #0062cc;
+  }
+
+
+    .profile-pic-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-pic {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff; /* เพิ่มกรอบของรูป */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-VhVU4HnrnZ3BPt9JF4fTl0Ih8QJz89+RHDJ0M2Ernt4GVwYo2z6Gf25y/Rz7GhXWp3h7mNdKJc0Z6r4uUdYyGw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="container">
+  <div class="col-md-12">
+      <div class="card">
+          <div class="card-body">
+              <div class="profile-pic-container">
+                  
+                  <img src="./assets/images/changli.jpg" alt="Profile Picture" class="profile-pic">
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h4>{{title}}</h4>
+                      <hr>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-8 offset-md-2">
+                      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                          <!-- แก้ไขตามที่ต้องการ -->
+                          <div class="form-group row">
+                              <label for="username" class="col-4 col-form-label">User Name*</label> 
+                              <div class="col-12">
+                                  <input formControlName="userName" placeholder="Username" class="form-control here" required="required" type="text" readonly>
                               </div>
-                              <div class="form-group row">
-                                <label for="name" class="col-4 col-form-label">First Name</label> 
-                                <div class="col-12">
+                          </div>
+                          <div class="form-group row">
+                              <label for="name" class="col-4 col-form-label">First Name</label> 
+                              <div class="col-12">
                                   <input formControlName="fristName" placeholder="First Name" class="form-control here" type="text">
-                                </div>
                               </div>
-                              <div class="form-group row">
-                                <label for="lastname" class="col-4 col-form-label">Last Name</label> 
-                                <div class="col-12">
+                          </div>
+                          <div class="form-group row">
+                              <label for="lastname" class="col-4 col-form-label">Last Name</label> 
+                              <div class="col-12">
                                   <input formControlName="lastName" placeholder="Last Name" class="form-control here" type="text">
-                                </div>
                               </div>
-                              <div class="form-group row">
-                                <label for="text" class="col-4 col-form-label">Phone</label> 
-                                <div class="col-12">
+                          </div>
+                          <div class="form-group row">
+                              <label for="text" class="col-4 col-form-label">Phone</label> 
+                              <div class="col-12">
                                   <input formControlName="phone" placeholder="phone" class="form-control here" required="required" type="text">
-                                </div>
                               </div>
-                              <div class="form-group row">
-                                <label for="age" class="col-4 col-form-label">Age</label> 
-                                <div class="col-12">
+                          </div>
+                          <div class="form-group row">
+                              <label for="age" class="col-4 col-form-label">Age</label> 
+                              <div class="col-12">
                                   <input formControlName="age" placeholder="Email" class="form-control here" required="required" type="text">
-                                </div>
                               </div>
-							  <div class="form-group row">
-                                <label for="select" class="col-4 col-form-label">RoleName</label> 
-                                <div class="col-12">
-                                  <select  class="custom-select" formControlName="roleId" readonly>
-                                    <option  *ngFor="let item of roleList" value="{{item.id}}" [disabled]="true">{{item.roleName}}</option>
+                          </div>
+                          <div class="form-group row">
+                              <label for="select" class="col-4 col-form-label">RoleName</label> 
+                              <div class="col-12">
+                                  <select class="custom-select" formControlName="roleId" readonly>
+                                      <option *ngFor="let item of roleList" value="{{item.id}}" [disabled]="true">{{item.roleName}}</option>
                                   </select>
-                                </div>
                               </div>
-                              <div class="form-group row">
-                                <div class="offset-4 col-12">
+                          </div>
+                          <div class="form-group row">
+                              <div class="offset-5 col-12">
                                   <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
-                                </div>
                               </div>
-                            </form>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-	</div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

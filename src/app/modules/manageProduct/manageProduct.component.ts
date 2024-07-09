@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./manageProduct.component.css']
 })
 export class ManageProductComponent implements OnInit {
-
+  imageBlobUrl : any 
+  imageBlobUrls : any = []
   productList: any[];
   productTypeList: any[];
   productImgList: any[];

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CallserviceService } from '../services/callservice.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-manageMotorcycle',
@@ -10,10 +9,9 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./manageMotorcycle.component.css']
 })
 export class ManageMotorcycleComponent implements OnInit {
-
+  imageBlobUrl: any;
   motorcycleList: any[] = [];
   motorcycleTypeList: any[] = [];
-  motorcycleImgList: any[] = [];
 
   constructor(
     private callService: CallserviceService,
@@ -23,10 +21,10 @@ export class ManageMotorcycleComponent implements OnInit {
 
   ngOnInit() {
     this.getMotorTypeAll();
-    this.getAllMotorcycles();
+    this.getAllMotorcycle();
   }
 
-  getAllMotorcycles() {
+  getAllMotorcycle() {
     this.callService.getAllMotorcycle().subscribe({
       next: (res) => {
         if (res.data) {
@@ -34,15 +32,14 @@ export class ManageMotorcycleComponent implements OnInit {
           this.motorcycleList.forEach(motorcycle => {
             motorcycle.imgList = [];
             motorcycle.motorcycleType = this.motorcycleTypeList.find(type => type.motorcycleTypeId === motorcycle.motorcycleTypeId);
-            this.callService.getMotorcycleByMotorId(motorcycle.motorcycleId).subscribe({
+            this.callService.getMotorcycleByMotorcycleId(motorcycle.motorcycleId).subscribe({
               next: (imgRes: any) => {
                 if (imgRes.data) {
-                  this.motorcycleImgList = imgRes.data;
-                  this.motorcycleImgList.forEach(motorcycleImg => {
+                  imgRes.data.forEach((motorcycleImg: any) => {
                     this.getImage(motorcycleImg.motorcycleImgName, motorcycle.imgList);
                   });
                 } else {
-                  window.location.reload(); // Reload page if no image data
+                  window.location.reload();
                 }
               }
             });
@@ -52,13 +49,11 @@ export class ManageMotorcycleComponent implements OnInit {
     });
   }
 
-  getImage(fileName: string, imgList: any[]) {
-    this.callService.getBlobThumbnail(fileName).subscribe({
-      next: (res) => {
-        let objectURL = URL.createObjectURL(res);
-        let safeUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        imgList.push(safeUrl);
-      }
+  getImage(fileName: any, imgList: any) {
+    this.callService.getThumbnail(fileName).subscribe((res) => {
+      let objectURL = URL.createObjectURL(res);
+      this.imageBlobUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      imgList.push(this.imageBlobUrl);
     });
   }
 
@@ -74,10 +69,10 @@ export class ManageMotorcycleComponent implements OnInit {
 
   onDeleteMotorcycle(motorcycleId: any) {
     if (motorcycleId) {
-      this.callService.deleteMotor(motorcycleId).subscribe({
+      this.callService.deleteMotorcycle(motorcycleId).subscribe({
         next: (res) => {
           if (res.data) {
-            window.location.reload(); // Reload page after deletion
+            this.getAllMotorcycle();
           }
         }
       });
@@ -85,6 +80,6 @@ export class ManageMotorcycleComponent implements OnInit {
   }
 
   onUpdateMotorcycle(motorcycleId: any) {
-    this.router.navigate(['/motorcycle', motorcycleId]);
+    this.router.navigate(['/product', motorcycleId]);
   }
 }

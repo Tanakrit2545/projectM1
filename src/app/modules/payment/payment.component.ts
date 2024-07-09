@@ -61,7 +61,7 @@ export class PaymentComponent {
   }
 
   finalizePayment() {
-    window.location.href = './motorcycle';
+    window.location.href = './momo';
   }
 
   cancelPayment() {

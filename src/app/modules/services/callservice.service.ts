@@ -50,40 +50,38 @@ export class CallserviceService {
     return this.http.delete(API_ENDPOINT.concat(`/register/delete?userId=${userId}`));
   }
 
-  deleteMotor(motorcycleId: string): Observable<any> {
-    return this.http.delete(API_ENDPOINT.concat(`/motorcycle/delete?motorId=${motorcycleId}`));
+  getMotorcycleImgByMotorcycleId(motorcycleId: any): Observable<any> {
+    return this.http.get(API_ENDPOINT.concat('/motorcycle/getMotorcycleImgByMotorcycleId?motorcycleId=' + motorcycleId));
   }
 
-  // Methods related to motor images
-  getMotorImgByMotorId(motorId: string): Observable<any> {
-    return this.http.get(API_ENDPOINT.concat(`/motor/getMotorImgByMotorId?motorId=${motorId}`));
-  }
-
-  getBlobThumbnail(fileName: string): Observable<Blob> {
+  getThumbnail(fileName: string): Observable<Blob> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json'    
     });
-    return this.http.get<Blob>(API_ENDPOINT.concat(`/motor/getImageByte?fileName=${fileName}`), {
-      headers: headers,
-      responseType: 'blob' as 'json'
-    });
+    return this.http.get<Blob>(API_ENDPOINT.concat(`/motorcycle/getThumbnailByte?fileName=${fileName}`), { headers: headers, responseType: 'blob' as 'json' });
+  }
+  loadProducts(): Observable<any[]> {
+    return this.http.get<any[]>('/api/products');
   }
 
-  // Methods related to motorcycles
+  deleteMotorcycle(motorcycleId: any): Observable<any> {
+    return this.http.delete(API_ENDPOINT.concat('/motorcycle/delete?motorcycleId=' + motorcycleId));
+  }
+
   getAllMotorcycle(): Observable<any> {
     return this.http.get(API_ENDPOINT.concat('/motorcycle/getAll'));
   }
 
   getMotorcycleTypeAll(): Observable<any> {
-    return this.http.get(API_ENDPOINT.concat('/motorcycle/getMotorTypeAll'));
+    return this.http.get(API_ENDPOINT.concat('/motorcycle/getMotorcycleTypeAll'));
   }
 
-  saveImageForMotorcycle(formData: FormData, motorcycleId: string): Observable<any> {
-    return this.http.post<any>(API_ENDPOINT.concat(`/motorcycle/saveImage/${motorcycleId}`), formData);
+  saveImage(formData: FormData, motorcycleId: any): Observable<any> {
+    return this.http.post<any>(API_ENDPOINT.concat('/motorcycle/saveImage/' + motorcycleId), formData);
   }
 
-  getMotorcycleByMotorId(motorcycleId: string): Observable<any> {
+  getMotorcycleByMotorcycleId(motorcycleId: string): Observable<any> {
     return this.http.get(API_ENDPOINT.concat(`/motorcycle/getById?motorcycleId=${motorcycleId}`));
   }
 
@@ -92,21 +90,24 @@ export class CallserviceService {
     return this.http.put<any>(API_ENDPOINT.concat(`/motorcycle/update/${motorcycleId}`), body, this.httpOptions);
   }
 
-  deleteMotorcycleImage(fileName: string): Observable<any> {
-    return this.http.delete(API_ENDPOINT.concat(`/motorcycle/deleteImgByFileName?fileName=${fileName}`));
-  }
-
-  getImageByte(fileName: string): Observable<Blob> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'    
-    });
-    return this.http.get<Blob>(API_ENDPOINT.concat('/product/getImageByte?fileName='+fileName)
-    , {headers: headers, responseType: 'blob' as 'json' });
+  deleteImage(fileName: any): Observable<any> {
+    return this.http.delete(API_ENDPOINT.concat('/motorcycle/deleteImgByFileName?fileName=' + fileName));
   }
 
   saveMotorcycle(newMotorcycle: any): Observable<any> {
     const body = JSON.stringify(newMotorcycle);
     return this.http.post<any>(API_ENDPOINT.concat('/motorcycle/save'), body, this.httpOptions);
   }
+
+
+getImageByte(fileName: string): Observable<Blob> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  });
+  return this.http.get<Blob>(API_ENDPOINT.concat(`/motorcycle/getImageByte?fileName=${fileName}`), {
+    headers: headers,
+    responseType: 'blob' as 'json'
+  });
+}
 }

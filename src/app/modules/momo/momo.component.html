@@ -1,0 +1,76 @@
+<div class="container">
+    <!-- Product List -->
+    <div class="row product-container">
+        <div class="col-md-12">
+            <h2>Product List</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-list">
+                        <div class="row">
+                            <div *ngFor="let product of productList" class="col-md-4 mb-4">
+                                <div class="product motorcycle-card">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4 product-images">
+                                            <img [src]="product.imgList[0]" class="card-img" alt="Product Image">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ product.productName }}</h5>
+                                                <p class="card-text">Price: {{ product.price | currency }}</p>
+                                                <p class="card-text">Type: {{ getProductType(product) }}</p>
+                                                <p class="card-text">Quantity: {{ product.quantity || 0 }}</p>
+                                                <button class="btn btn-primary mr-2" (click)="addToCart(product)">Add to Cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart -->
+    <div class="row cart-container">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Shopping Cart</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item cart-item" *ngFor="let item of cart">
+                            <div class="row">
+                                <div class="col-md-3 product-images">
+                                    <img [src]="item.imgList[0]" class="card-img" alt="Product Image">
+                                </div>
+                                <div class="col-md-9">
+                                    <h3>{{ item.productName }}</h3>
+                                    <p>Price: {{ item.price | currency }}</p>
+                                    <div class="quantity-controls ml-auto">
+                                        <button class="btn btn-sm btn-outline-primary increment ml-2" (click)="incrementQuantity(item)">+</button>
+                                        <span>{{ item.quantity }}</span>
+                                        <button class="btn btn-sm btn-outline-primary decrement mr-2" (click)="decrementQuantity(item)">-</button>
+                                        <button class="btn btn-sm btn-danger remove ml-2" (click)="removeFromCart(item.productId)">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">Total: {{ calculateCartTotal() | currency }}</li>
+                    </ul>
+                    <button class="btn btn-success checkout-button mt-3" (click)="checkout()">Checkout</button>
+                    <button class="btn btn-secondary mt-3 refresh-cart-button" (click)="refreshCart()">Refresh Cart</button>
+                </div>
+            </div>
+
+            <!-- QR Code -->
+            <div *ngIf="cart.length > 0" class="card">
+                <img [src]="qrCodeImage" class="card-img-top qr-code" alt="QR Code Image" *ngIf="qrCodeImage">
+                <div class="card-body">
+                    <h5 class="card-title">QR Code</h5>
+                    <p class="card-text">Scan QR code to proceed payment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

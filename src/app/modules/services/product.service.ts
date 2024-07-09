@@ -94,6 +94,10 @@ export class ProductService {
     });
     return this.http.get<Blob>(API_ENDPOINT.concat(`/product/getThumbnailByte?fileName=${fileName}`), { headers: headers, responseType: 'blob' as 'json' });
   }
+  loadProducts(): Observable<any[]> {
+    return this.http.get<any[]>('/api/products');
+  }
+  
 }
 
  

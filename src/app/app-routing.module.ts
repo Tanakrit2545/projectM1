@@ -15,6 +15,7 @@ import { UpdateProductComponent } from './modules/updateProduct/updateProduct.co
 import { ReportComponent } from './modules/report/report.component';
 import { PaymentComponent } from './modules/payment/payment.component';
 import { ManageMotorcycleComponent } from './modules/manageMotorcycle/manageMotorcycle.component';
+import { MomoComponent } from './modules/momo/momo.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,9 @@ const routes: Routes = [
     },{
       path: 'product/:productId',
       component: UpdateProductComponent
+    },{
+      path: 'momo',
+      component: MomoComponent
     },{
       path: 'payment',
       component: PaymentComponent

@@ -1,0 +1,221 @@
+/* Filter container */
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.filter-input,
+.filter-select {
+  margin-right: 10px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Motorcycle card */
+.motorcycle-card {
+  position: relative; /* Ensure relative positioning */
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  width: 400px;
+  display: inline-block;
+  vertical-align: top;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.motorcycle-card:hover {
+  transform: translateY(-5px);
+}
+
+.motorcycle-card img {
+  width: 280px;
+  height: 200px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.motorcycle-card .motorcycle-details {
+  position: absolute;
+  top: 16px; /* Adjust top position as needed */
+  right: 160px; /* Adjust right position as needed */
+}
+
+.motorcycle-card h5 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  margin-left: 155px;
+  color: #2a2a2a;
+}
+
+.motorcycle-card p {
+  font-size: 16px;
+  /* margin-bottom: 12px; */
+  margin-left: 155px;
+  color: #666;
+}
+
+.motorcycle-card button {
+  padding: 5px 3px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 155px;
+  transition: background-color 0.3s ease;
+}
+
+.motorcycle-card button:hover {
+  background-color: #45a049;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #0056b3; /* Default hover color */
+}
+
+/* Specific button colors */
+.pagination button:first-child {
+  background-color: #dc3545; /* Red color for Previous button */
+}
+
+.pagination button:last-child {
+  background-color: #4CAF50; /* Green color for Next button */
+}
+
+/* Cart item adjustments */
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.cart-item:hover {
+  transform: translateY(-5px);
+}
+
+.cart-item img {
+  width: 180px; /* Adjust image width */
+  height: 120px; /* Adjust image height */
+  border-radius: 5px;
+  margin-right: 400px; /* Increase space between image and text */
+}
+
+.cart-item h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #2a2a2a;
+}
+
+.cart-item p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Push controls to the right */
+}
+
+.quantity-controls button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 5px;
+}
+
+.quantity-controls button:hover {
+  filter: brightness(90%);
+}
+
+.quantity-controls span {
+  margin: 0 10px; /* Add space around the quantity */
+}
+
+.quantity-controls button.increment {
+  background-color: #28a745; /* Green color for Increment button */
+  color: white;
+  margin-left: -150px;
+}
+
+.quantity-controls button.decrement {
+  background-color: #373737; /* Dark gray color for Decrement button */
+  color: white;
+}
+
+.remove {
+  background-color: #dc3545; /* Red color for Remove button */
+  color: white;
+  margin-left: auto; /* Push remove button to the right */
+}
+
+.remove:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.checkout-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #1bbd02; /* Blue color for Checkout button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+  background-color: #008414; /* Darker blue on hover */
+}
+
+.refresh-cart-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #ffc107; /* Yellow color for Refresh Cart button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 5px;
+}
+
+.refresh-cart-button:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+}
+
+/* motorcycle.component.css */
+
+.qr-code {
+  width: 200px; /* Adjust width as needed */
+  height: 200px; /* Maintain aspect ratio */
+}

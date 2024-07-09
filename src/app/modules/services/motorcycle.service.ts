@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpHeaders, HttpClient } from '@angular/common/http'; // Import HttpHeaders and HttpClient
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CallserviceService } from '../services/callservice.service';
 
@@ -12,7 +12,7 @@ interface Motorcycle {
   motorcycleDesc: string;
   price: number;
   status: string;
-  image: './assets/images/default.jpg'
+  image: string; // Fixing type for image property
   quantity?: number;
 }
 
@@ -23,11 +23,11 @@ export class MotorcycleService {
   private motorcyclesSource = new BehaviorSubject<Motorcycle[]>([]);
   currentMotorcycles = this.motorcyclesSource.asObservable();
 
-  constructor(private http: HttpClient, private callService: CallserviceService) {} // Inject HttpClient and CallserviceService
+  constructor(private http: HttpClient, private callService: CallserviceService) {}
 
   addMotorcycle(motorcycle: Motorcycle) {
     const currentData = this.motorcyclesSource.value;
-    this.motorcyclesSource.next(currentData.concat(motorcycle)); // Use concat to create a new array
+    this.motorcyclesSource.next(currentData.concat(motorcycle));
   }
 
   loadMotorcycles() {
@@ -36,13 +36,12 @@ export class MotorcycleService {
         this.motorcyclesSource.next(motorcycles);
         console.log('Motorcycles loaded successfully!', motorcycles);
       },
-      (error: any) => { // Specify the type of 'error' parameter
+      (error: any) => {
         console.error('Error loading motorcycles:', error);
       }
     );
   }
   
-
   // Methods related to motor images
   getMotorcycleImgByMotorcycleId(motorcycleId: string): Observable<any> {
     return this.http.get(API_ENDPOINT.concat(`/motorcycle/getMotorImgByMotorId?motorId=${motorcycleId}`));
@@ -68,7 +67,7 @@ export class MotorcycleService {
     return this.http.get(API_ENDPOINT.concat('/motorcycle/getMotorTypeAll'));
   }
 
-  saveImageForMotorcycle(formData: FormData, motorcycleId: string): Observable<any> {
+  saveImage(formData: FormData, motorcycleId: string): Observable<any> {
     return this.http.post<any>(API_ENDPOINT.concat(`/motorcycle/saveImage/${motorcycleId}`), formData);
   }
 
