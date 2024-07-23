@@ -1,0 +1,18 @@
+<div class="order-summary">
+  <h1>Order Summary</h1>
+  <div *ngFor="let item of cartItems" class="order-item">
+    <img [src]="item.imageUrl" alt="{{ item.productName }}" width="100"> <!-- Add this line to display product image -->
+    <p>{{ item.productName }} - {{ item.quantity }} x {{ item.price }}</p>
+    <!-- <button (click)="removeCartItem(item.id)">Remove</button> -->
+  </div>
+  <div class="order-total">
+    <p>Total: {{ calculateTotal() }}</p>
+  </div>
+  <div class="order-checkout">
+    <button (click)="checkout()">Checkout</button>
+  </div>
+  <div *ngIf="qrCodeImage" class="qr-code-section"> <!-- Add this section to display QR code -->
+    <h2>Scan to Pay</h2>
+    <img [src]="qrCodeImage" alt="QR Code">
+  </div>
+</div>

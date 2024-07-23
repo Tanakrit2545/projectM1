@@ -19,6 +19,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { DataSharingService } from './modules/DataSharingService';
 import { PaymentComponent } from './modules/payment/payment.component';
 import { ManageMotorcycleComponent } from './modules/manageMotorcycle/manageMotorcycle.component';
+import { OrderComponent } from './modules/order/order.component';
 
 
 // import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
@@ -30,6 +31,7 @@ import { ManageMotorcycleComponent } from './modules/manageMotorcycle/manageMoto
     PaymentComponent,
     ManageMotorcycleComponent,
     MomoComponent,
+    OrderComponent
     // ProductComponent // Remove ProductComponent from here
     // Other components
   ],

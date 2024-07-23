@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from './../services/product.service';
+import { CartService } from './../services/cart.service'; // Add this import
 
 interface Product {
   productId: number;
@@ -32,7 +33,8 @@ export class MomoComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private cartService: CartService // Inject CartService
   ) {}
 
   ngOnInit() {
@@ -101,22 +103,69 @@ export class MomoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/product/' + productId]);
   }
 
+  // addToCart(product: Product): void {
+  //   const existingProduct = this.cart.find(item => item.productId === product.productId);
+  //   if (existingProduct) {
+  //     if (existingProduct.quantity === undefined) {
+  //       existingProduct.quantity = 1; // Initialize quantity if undefined
+  //     } else {
+  //       existingProduct.quantity++;
+  //     }
+  //   } else {
+  //     product.quantity = 1;
+  //     this.cart.push(product);
+  //   }
+
+  //   // Add to CartService
+  //   this.cartService.addCartItem({
+  //     id: this.cart.length, // Assuming id is the length of cart array, you can change this logic as needed
+  //     productId: product.productId,
+  //     productName: product.productName,
+  //     price: product.price,
+  //     quantity: product.quantity!,
+  //     createdAt: new Date(),
+  //     imageUrl: product.imgList[0] as string // Add this line, assuming the first image in the list is the primary image
+  //   });
+
+  //   // Calculate the total price of the item(s) in the cart
+  //   const totalPrice = this.calculateCartTotal();
+
+  //   // Update QR code image based on total cart price
+  //   if (totalPrice === 1200) {
+  //     this.qrCodeImage = './assets/images/1200.png';
+  //   } else if (totalPrice === 2400) {
+  //     this.qrCodeImage = './assets/images/2400.png';
+  //   } else {
+  //     this.qrCodeImage = ''; // No QR code for other totals
+  //   }
+
+  //   // Update QR code image in CartService
+  //   this.cartService.setQrCodeImage(this.qrCodeImage); // Add this line
+  // }
+
   addToCart(product: Product): void {
     const existingProduct = this.cart.find(item => item.productId === product.productId);
     if (existingProduct) {
-      if (existingProduct.quantity === undefined) {
-        existingProduct.quantity = 1; // Initialize quantity if undefined
-      } else {
-        existingProduct.quantity++;
-      }
+      existingProduct.quantity = (existingProduct.quantity || 0) + 1;
     } else {
       product.quantity = 1;
       this.cart.push(product);
     }
-
-    // Calculate the total price of the item(s) in the cart
+  
+    // Add to CartService
+    this.cartService.addCartItem({
+      id: this.cart.length, // Use an appropriate ID or unique identifier
+      productId: product.productId,
+      productName: product.productName,
+      price: product.price,
+      quantity: product.quantity!,
+      createdAt: new Date(),
+      imageUrl: product.imgList[0] as string
+    });
+  
+    // Calculate the total price of the items in the cart
     const totalPrice = this.calculateCartTotal();
-
+  
     // Update QR code image based on total cart price
     if (totalPrice === 1200) {
       this.qrCodeImage = './assets/images/1200.png';
@@ -125,6 +174,8 @@ export class MomoComponent implements OnInit, OnDestroy {
     } else {
       this.qrCodeImage = ''; // No QR code for other totals
     }
+  
+    this.cartService.setQrCodeImage(this.qrCodeImage); // Update QR code image in CartService
   }
 
   incrementQuantity(product: Product): void {
@@ -154,8 +205,20 @@ export class MomoComponent implements OnInit, OnDestroy {
   }
 
   checkout(): void {
-    console.log('Checkout process started');
-    this.router.navigate(['/payment']);
+    this.cart.forEach(item => {
+      const data = {
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price
+      };
+      console.log('Checkout process started', data);
+      this.cartService.saveCart(data).subscribe(response => {
+        console.log('Checkout response:', response);
+        this.router.navigate(['/order']);
+      }, error => {
+        console.error('Checkout error:', error);
+      });
+    });
   }
 
   calculateCartTotal(): number {
@@ -170,12 +233,12 @@ export class MomoComponent implements OnInit, OnDestroy {
     // Add your refresh cart logic here
     console.log('Cart refreshed');
   }
+
   getProductType(product: Product): string {
     if (product.productType && product.productType.length > 0) {
-        return product.productType[0]?.productTypeName || '-';
+      return product.productType[0]?.productTypeName || '-';
     } else {
-        return '-';
+      return '-';
     }
-}
-
+  }
 }
