@@ -1,37 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CartService } from './../services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit {
   paymentMessage: string;
-  showQRCode: boolean = false;
+  showQRCode: boolean = true;
   slipUploadedMessage: string;
   slipUploaded: boolean = false;
-  confirmationMessage: string;
-  finalConfirmationMessage: string;
+  showNotification: boolean = false;
+  processingPayment: boolean = false;
+  paymentSuccess: boolean = false;
+  paymentFailure: boolean = false; // เพิ่มสถานะสำหรับการชำระเงินไม่สำเร็จ
   slipPreview: string | ArrayBuffer | null = null;
-  private confirmationTimeout: any;
-  confirmTransaction: boolean = false;
+  qrCodeImage: string = '';
 
-  handleCreditCardPayment() {
-    this.resetMessages();
-    this.paymentMessage = 'กรุณาใส่ข้อมูลบัตรเครดิต/เดบิต';
-    this.showQRCode = false;
-  }
+  constructor(private cartService: CartService, private router: Router) {}
 
-  handleBankAccountPayment() {
-    this.resetMessages();
-    this.paymentMessage = 'กรุณาใส่ข้อมูลบัญชีธนาคาร';
-    this.showQRCode = false;
-  }
-
-  handleQRCodePayment() {
-    this.resetMessages();
-    this.paymentMessage = 'กรุณาสแกนรหัส QR เพื่อชำระเงิน';
-    this.showQRCode = true;
+  ngOnInit() {
+    this.cartService.getQrCodeImage().subscribe((imagePath: string) => {
+      this.qrCodeImage = imagePath;
+    });
   }
 
   onFileSelected(event: any) {
@@ -48,38 +41,34 @@ export class PaymentComponent {
   }
 
   confirmPayment() {
-    if (this.slipUploaded) {
-      this.confirmTransaction = true;
-      this.finalConfirmationMessage = 'การชำระเงินสำเร็จ ขอบคุณที่ใช้บริการ';
-      setTimeout(() => {
-        this.finalizePayment();
-      }, 2000);
-    } else {
-      this.confirmationMessage = 'ชำระเงินไม่สำเร็จ กรุณาลองใหม่อีกครั้ง';
-      this.setConfirmationTimeout();
-    }
+    this.showNotification = true;
+    this.processingPayment = true;
+
+    setTimeout(() => {
+      this.processingPayment = false;
+      if (this.slipUploaded) {
+        this.paymentSuccess = true;
+
+        setTimeout(() => {
+          this.finalizePayment();
+        }, 2000); // Delay before redirecting
+      } else {
+        this.paymentFailure = true;
+
+        setTimeout(() => {
+          this.resetNotification();
+        }, 2000); // Delay before hiding the notification
+      }
+    }, 2000); // Simulate processing time
   }
 
   finalizePayment() {
-    window.location.href = './momo';
+    this.showNotification = false;
+    this.router.navigate(['/momo']);
   }
 
-  cancelPayment() {
-    this.resetMessages();
-    this.slipPreview = null;
-  }
-
-  private resetMessages() {
-    this.paymentMessage = '';
-    this.showQRCode = false;
-    this.slipUploadedMessage = '';
-    this.confirmationMessage = '';
-    this.confirmTransaction = false; // Reset confirmTransaction to false on reset
-  }
-
-  private setConfirmationTimeout() {
-    this.confirmationTimeout = setTimeout(() => {
-      this.confirmationMessage = '';
-    }, 500);
+  resetNotification() {
+    this.showNotification = false;
+    this.paymentFailure = false;
   }
 }

@@ -1,35 +1,35 @@
 <div class="payment-page-container">
-    <h2>ชำระเงิน</h2>
-    <div class="payment-buttons">
-      <button class="payment-method-button" (click)="handleCreditCardPayment()">บัตรเครดิต/เดบิต</button>
-      <button class="payment-method-button" (click)="handleBankAccountPayment()">บัญชีธนาคาร</button>
-      <button class="payment-method-button" (click)="handleQRCodePayment()">คิวอาร์โค้ด</button>
+  <h2>ชำระเงิน</h2>
+  <div *ngIf="showQRCode" class="qr-code-section">
+    <img [src]="qrCodeImage" alt="QR Code" class="qr-code-image">
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-upload"></i></span>
+      </div>
+      <input type="file" (change)="onFileSelected($event)" class="form-control">
     </div>
-    <div *ngIf="paymentMessage" class="payment-message">{{ paymentMessage }}</div>
-  
-    <div *ngIf="showQRCode" class="qr-code-section">
-      <img src="./assets/images/rq.jpg" alt="QR Code" class="qr-code-image">
-      <div class="form-group input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fa fa-upload"></i></span>
-        </div>
-        <input type="file" (change)="onFileSelected($event)" class="form-control">
-      </div>
-      <div *ngIf="slipUploadedMessage" class="slip-uploaded-message">{{ slipUploadedMessage }}</div>
-      <div *ngIf="slipPreview" class="slip-preview">
-        <img [src]="slipPreview" alt="Slip Preview" class="slip-preview-image">
-      </div>
-      <button class="confirm-button" (click)="confirmPayment()">ยืนยันการทำรายการ</button>
-      <div *ngIf="confirmationMessage" class="confirmation-message">
-        <div *ngIf="!slipUploaded" class="confirmation-error">{{ confirmationMessage }}</div>
-        <div *ngIf="slipUploaded && !confirmTransaction" class="confirmation-success">
-          {{ confirmationMessage }}
-        </div>
-      </div>
+    <div *ngIf="slipUploadedMessage" class="slip-uploaded-message">{{ slipUploadedMessage }}</div>
+    <div *ngIf="slipPreview" class="slip-preview">
+      <img [src]="slipPreview" alt="Slip Preview" class="slip-preview-image">
     </div>
-  
-    <div *ngIf="finalConfirmationMessage" class="final-confirmation-message">
-      {{ finalConfirmationMessage }}
+    <button class="confirm-button" (click)="confirmPayment()">ยืนยันการทำรายการ</button>
+  </div>
+
+  <!-- Notification Modal -->
+  <div *ngIf="showNotification" class="notification-overlay">
+    <div class="notification-modal">
+      <div *ngIf="processingPayment" class="notification-content processing">
+        <i class="fa fa-spinner fa-spin"></i>
+        <p>กำลังประมวลผล...</p>
+      </div>
+      <div *ngIf="paymentSuccess" class="notification-content success">
+        <i class="fa fa-check-circle"></i>
+        <p>ชำระเงินสำเร็จ ขอบคุณที่ใช้บริการ</p>
+      </div>
+      <div *ngIf="paymentFailure" class="notification-content failure">
+        <i class="fa fa-times-circle"></i>
+        <p>ชำระเงินไม่สำเร็จ กรุณาลองใหม่อีกครั้ง</p>
+      </div>
     </div>
   </div>
-  
+</div>
