@@ -1,8 +1,8 @@
 <div class="order-summary">
   <h1>Order Summary</h1>
   <div *ngFor="let item of cartItems" class="order-item">
-    <img [src]="item.imageUrl" alt="{{ item.productName }}" width="100"> <!-- Add this line to display product image -->
-    <p>{{ item.productName }} - {{ item.quantity }} x {{ item.price }}</p>
+    <img [src]="item.imageUrl" alt="{{ item.productName }}" width="200"> <!-- Add this line to display product image -->
+    <p>{{ item.productName }} - จำนวน : {{ item.quantity }} คัน / ราคา {{ item.price }} THB</p>
     <!-- <button (click)="removeCartItem(item.id)">Remove</button> -->
   </div>
   <div class="order-total">
