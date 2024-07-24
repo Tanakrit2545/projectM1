@@ -15,9 +15,12 @@ export class PaymentComponent implements OnInit {
   showNotification: boolean = false;
   processingPayment: boolean = false;
   paymentSuccess: boolean = false;
-  paymentFailure: boolean = false; // เพิ่มสถานะสำหรับการชำระเงินไม่สำเร็จ
+  paymentFailure: boolean = false;
   slipPreview: string | ArrayBuffer | null = null;
   qrCodeImage: string = '';
+  countdownTime: number = 600; // 10 minutes in seconds
+  countdownTimer: any;
+  timeLeft: string = '';
 
   constructor(private cartService: CartService, private router: Router) {}
 
@@ -25,6 +28,7 @@ export class PaymentComponent implements OnInit {
     this.cartService.getQrCodeImage().subscribe((imagePath: string) => {
       this.qrCodeImage = imagePath;
     });
+    this.startCountdown();
   }
 
   onFileSelected(event: any) {
@@ -37,6 +41,7 @@ export class PaymentComponent implements OnInit {
         this.slipPreview = reader.result;
       };
       reader.readAsDataURL(file);
+      clearInterval(this.countdownTimer); // หยุดนับถอยหลังเมื่ออัปโหลดเสร็จ
     }
   }
 
@@ -51,15 +56,15 @@ export class PaymentComponent implements OnInit {
 
         setTimeout(() => {
           this.finalizePayment();
-        }, 2000); // Delay before redirecting
+        }, 2000);
       } else {
         this.paymentFailure = true;
 
         setTimeout(() => {
           this.resetNotification();
-        }, 2000); // Delay before hiding the notification
+        }, 2000);
       }
-    }, 2000); // Simulate processing time
+    }, 2000);
   }
 
   finalizePayment() {
@@ -70,5 +75,24 @@ export class PaymentComponent implements OnInit {
   resetNotification() {
     this.showNotification = false;
     this.paymentFailure = false;
+  }
+
+  startCountdown() {
+    this.updateTimeLeft();
+    this.countdownTimer = setInterval(() => {
+      if (this.countdownTime > 0) {
+        this.countdownTime--;
+        this.updateTimeLeft();
+      } else {
+        clearInterval(this.countdownTimer);
+        this.paymentMessage = 'หมดเวลาในการแนบสลิป';
+      }
+    }, 1000);
+  }
+
+  updateTimeLeft() {
+    const minutes = Math.floor(this.countdownTime / 60);
+    const seconds = this.countdownTime % 60;
+    this.timeLeft = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 }

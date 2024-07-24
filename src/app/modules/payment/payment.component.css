@@ -7,6 +7,11 @@
   background-color: #f1f1f1;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.payment-page-container h2 {
+  text-align: center;
 }
 
 /* QR code section styling */
@@ -24,20 +29,42 @@
   background-color: #fff;
 }
 
+/* Form group styling */
 .form-group.input-group {
   margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Input group styling */
+.input-group-prepend {
+  margin-right: 10px;
 }
 
 .input-group-text {
   background-color: #ddd;
   border: 1px solid #ccc;
+  padding: 10px 12px;
+  border-radius: 5px 0 0 5px;
 }
 
+/* Form control styling */
+.form-control {
+  flex: 1;
+  min-width: 150px; /* Adjust this value based on your layout needs */
+  padding: 10px;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid #ccc;
+}
+
+/* Slip uploaded message styling */
 .slip-uploaded-message,
 .slip-preview {
   margin-top: 10px;
 }
 
+/* Slip preview styling */
 .slip-preview img.slip-preview-image {
   width: 100%;
   max-width: 200px;
@@ -46,6 +73,7 @@
   border: 2px solid #ddd;
 }
 
+/* Confirm button styling */
 .confirm-button {
   margin-top: 20px;
   background-color: #4CAF50;
@@ -109,4 +137,15 @@
   margin: 0;
   font-size: 18px;
   color: #333;
+}
+
+.countdown {
+  font-size: 1.5em;
+  color: #e23a3a;
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid #242424;
+  padding: 10px;
+  border-radius: 10px;
 }
