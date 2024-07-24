@@ -10,7 +10,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { NgxLoadingModule } from 'ngx-loading';
 import { RegisterComponent } from 'src/app/modules/register/register.component';
 import { LoginComponent } from 'src/app/modules/login/login.component';
-import { DashbordAdminComponent } from 'src/app/modules/dashbordAdmin/dashbordAdmin.component';
 import { ProfileComponent } from 'src/app/modules/profile/profile.component';
 import { ManageUserComponent } from 'src/app/modules/manageUser/manageUser.component';
 import { ManageProductComponent } from 'src/app/modules/manageProduct/manageProduct.component';
@@ -34,7 +33,6 @@ import { ReportComponent } from 'src/app/modules/report/report.component';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    DashbordAdminComponent,
     ProfileComponent,
     ManageUserComponent,
     ManageProductComponent,

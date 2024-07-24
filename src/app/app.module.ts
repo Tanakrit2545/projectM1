@@ -9,20 +9,17 @@ import { MotorcycleComponent } from './modules/motorcycle/motorcycle.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { MomoComponent } from './modules/momo/momo.component';
-
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingModule } from "ngx-loading";
 import { DefaultModule } from './layouts/default/default.module';
-import { FullwidthModule } from './layouts/fullwidth/fullwidth.module'; // Import FullwidthModule
+import { FullwidthModule } from './layouts/fullwidth/fullwidth.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { DataSharingService } from './modules/DataSharingService';
 import { PaymentComponent } from './modules/payment/payment.component';
 import { ManageMotorcycleComponent } from './modules/manageMotorcycle/manageMotorcycle.component';
 import { OrderComponent } from './modules/order/order.component';
 
-
-// import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -31,9 +28,9 @@ import { OrderComponent } from './modules/order/order.component';
     PaymentComponent,
     ManageMotorcycleComponent,
     MomoComponent,
-    OrderComponent
-    // ProductComponent // Remove ProductComponent from here
-    // Other components
+    OrderComponent,
+   
+    // คอมโพเนนต์อื่น ๆ
   ],
   imports: [
     BrowserModule,
@@ -41,7 +38,7 @@ import { OrderComponent } from './modules/order/order.component';
     DefaultModule,
     QRCodeModule,
     NgxQRCodeModule,
-    FullwidthModule, // Ensure FullwidthModule is imported here
+    FullwidthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
