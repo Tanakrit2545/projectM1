@@ -19,6 +19,7 @@ import { DataSharingService } from './modules/DataSharingService';
 import { PaymentComponent } from './modules/payment/payment.component';
 import { ManageMotorcycleComponent } from './modules/manageMotorcycle/manageMotorcycle.component';
 import { OrderComponent } from './modules/order/order.component';
+import { ManagePaymentComponent } from './modules/managePayment/managePayment.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { OrderComponent } from './modules/order/order.component';
     ManageMotorcycleComponent,
     MomoComponent,
     OrderComponent,
+    ManagePaymentComponent
    
     // คอมโพเนนต์อื่น ๆ
   ],

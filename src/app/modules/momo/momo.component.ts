@@ -29,6 +29,7 @@ export class MomoComponent implements OnInit, OnDestroy {
   cart: Product[] = [];
   qrCodeImage: string = ''; // Default QR code image path
   notification: string = '';
+  order : any
 
   constructor(
     private productService: ProductService,
@@ -213,8 +214,11 @@ export class MomoComponent implements OnInit, OnDestroy {
       };
       console.log('Checkout process started', data);
       this.cartService.saveCart(data).subscribe(response => {
-        console.log('Checkout response:', response);
-        this.router.navigate(['/order']);
+        if(response.data){
+          this.order = response.data.id
+          console.log(response.data)
+        }
+        this.router.navigate(['/order/'+ this.order]);
       }, error => {
         console.error('Checkout error:', error);
       });

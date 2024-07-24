@@ -17,6 +17,7 @@ import { PaymentComponent } from './modules/payment/payment.component';
 import { ManageMotorcycleComponent } from './modules/manageMotorcycle/manageMotorcycle.component';
 import { MomoComponent } from './modules/momo/momo.component';
 import { OrderComponent } from './modules/order/order.component';
+import { ManagePaymentComponent } from './modules/managePayment/managePayment.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,9 @@ const routes: Routes = [
       path: 'manage-user',
       component: ManageUserComponent
     },{
+      path: 'manage-payment',
+      component: ManagePaymentComponent
+    },{
       path: 'profile/:userId',
       component: ProfileComponent
     },{
@@ -60,7 +64,7 @@ const routes: Routes = [
       path: 'momo',
       component: MomoComponent
     },{
-      path: 'order',
+      path: 'order/:id',
       component: OrderComponent
     },{
       path: 'payment',

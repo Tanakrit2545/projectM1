@@ -44,7 +44,7 @@ const API_ENDPOINT = environment.API_ENDPOINT;
       return of(this.qrCodeImage);
     }
   
-    saveCart(data: any): Observable<any> {
+    savePayment(data: any): Observable<any> {
       const body = JSON.stringify(data);
       const httpOptions = {
         headers: new HttpHeaders({

@@ -1,3 +1,29 @@
-<p>
-  managePayment works!
-</p>
+<div class="manage-payment">
+  <h2>Manage Payments</h2>
+  
+  <table class="payment-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Status Payment</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pay of paymentList">
+        <td>{{ pay.id }}</td>
+        <td>{{ pay.userId }}</td>
+        <td>{{ pay.statusPayment }}</td>
+        <td>{{ pay.pricePayment }}</td>
+        <td>{{ pay.createDate }}</td>
+        <td>
+          <button (click)="editPayment(pay)">Edit</button>
+          <button (click)="deletePayment(pay.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

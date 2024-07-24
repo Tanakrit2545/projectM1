@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from './../services/cart.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 interface CartItem {
   id: number;
@@ -9,7 +9,7 @@ interface CartItem {
   price: number;
   quantity: number;
   createdAt: Date;
-  imageUrl: string; // Add this line
+  imageUrl: string;
 }
 
 @Component({
@@ -19,23 +19,33 @@ interface CartItem {
 })
 export class OrderComponent implements OnInit {
   cartItems: CartItem[] = [];
-  qrCodeImage: string = ''; // Add this line
+  qrCodeImage: string = '';
+  orderId: string | null = null; // สำหรับเก็บ orderId
+  orderitemid : any
 
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private cartService: CartService, 
+    private router: Router,
+    private route: ActivatedRoute // Inject ActivatedRoute เพื่อดึง query parameters
+  ) {}
 
   ngOnInit() {
+    
+    this.orderitemid = this.route.snapshot.paramMap.get('id');
+    console.log(this.orderitemid)
+
     this.cartService.getAllCartItems().subscribe((data: CartItem[]) => {
       this.cartItems = data;
     });
 
     this.cartService.getQrCodeImage().subscribe((imagePath: string) => {
-      this.qrCodeImage = imagePath; // Add this line
+      this.qrCodeImage = imagePath;
     });
   }
 
   checkout() {
     console.log('Checkout process started');
-    this.router.navigate(['/payment']);
+    this.router.navigate(['/payment'], { queryParams: { orderId: this.orderitemid } });
   }
 
   removeCartItem(id: number) {

@@ -33,7 +33,7 @@ export class CartService {
     return this.http.get(API_ENDPOINT.concat('/api/cart/getAllcart'));
   }
 
-  getByIdCart(cartId: any): Observable<CartItem[]> {
+  getByIdCart(cartId: any): Observable<any> {
     return this.http.get<CartItem[]>(API_ENDPOINT.concat(`/api/cart/getById?cartId=${cartId}`));
   }
 
@@ -62,5 +62,15 @@ export class CartService {
       })
     };
     return this.http.post<any>(API_ENDPOINT.concat('/api/cart/save'), body, httpOptions);
+  }
+
+  savePayment(data: any): Observable<any> {
+    const body = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<any>(API_ENDPOINT.concat('/api/payment/save'), body, httpOptions);
   }
 }
