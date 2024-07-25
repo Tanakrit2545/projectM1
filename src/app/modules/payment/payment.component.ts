@@ -8,9 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-  paymentMessage: string;
+  paymentMessage: string = '';
   showQRCode: boolean = true;
-  slipUploadedMessage: string;
+  slipUploadedMessage: string = '';
   slipUploaded: boolean = false;
   showNotification: boolean = false;
   processingPayment: boolean = false;
@@ -22,36 +22,48 @@ export class PaymentComponent implements OnInit {
   countdownTimer: any;
   timeLeft: string = '';
   orderId: string | null = null;
-  orderitemId : any
-  userDate : any
-  price : any
+  userDate: any;
+  price: any;
 
-  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private cartService: CartService, 
+    private router: Router, 
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    this.userDate = this.getUserDetails();
+    this.orderId = this.route.snapshot.queryParamMap.get('orderId');
+    
+    if (this.orderId) {
+      this.loadOrderDetails(this.orderId);
+    }
+    
+    this.loadQrCodeImage();
+    this.startCountdown();
+  }
 
-    const userDetailSession: any = sessionStorage.getItem("userDetail");
-        if (userDetailSession) {
-            this.userDate = JSON.parse(userDetailSession);
-            console.log('userId:', this.userDate.userId);
-        }
+  getUserDetails() {
+    const userDetailSession: string | null = sessionStorage.getItem("userDetail");
+    if (userDetailSession) {
+      return JSON.parse(userDetailSession);
+    }
+    return null;
+  }
 
-    this.orderitemId = this.route.snapshot.queryParamMap.get('orderId');
-    console.log('Order ID:', this.orderitemId);
-
-    this.cartService.getByIdCart(this.orderitemId).subscribe((res) => {
+  loadOrderDetails(orderId: string) {
+    this.cartService.getByIdCart(orderId).subscribe((res) => {
       if (res.data) {
-
-       this.price = res.data.price
-
-        console.log(res.data);
+        this.price = res.data.price;
+        console.log('Order Details:', res.data);
       }
     });
+  }
 
+  loadQrCodeImage() {
     this.cartService.getQrCodeImage().subscribe((imagePath: string) => {
       this.qrCodeImage = imagePath;
     });
-    this.startCountdown();
   }
 
   onFileSelected(event: any) {
@@ -64,7 +76,7 @@ export class PaymentComponent implements OnInit {
         this.slipPreview = reader.result;
       };
       reader.readAsDataURL(file);
-      clearInterval(this.countdownTimer); // หยุดนับถอยหลังเมื่ออัปโหลดเสร็จ
+      clearInterval(this.countdownTimer); // Stop countdown when file is uploaded
     }
   }
 
@@ -76,24 +88,22 @@ export class PaymentComponent implements OnInit {
       this.processingPayment = false;
       if (this.slipUploaded) {
         this.paymentSuccess = true;
-
         setTimeout(() => {
           this.finalizePayment();
           const data = {
-            cartId : this.orderitemId,
-            userId : this.userDate.userId,
-            pricePayment : this.price
-          }
+            cartId: this.orderId,
+            userId: this.userDate?.userId,
+            pricePayment: this.price
+          };
 
-          this.cartService.savePayment(data).subscribe((res)=>{
-            if(res.data){
-              console.log(res.data)
+          this.cartService.savePayment(data).subscribe((res) => {
+            if (res.data) {
+              console.log('Payment Response:', res.data);
             }
-          })
+          });
         }, 2000);
       } else {
         this.paymentFailure = true;
-
         setTimeout(() => {
           this.resetNotification();
         }, 2000);
@@ -102,7 +112,6 @@ export class PaymentComponent implements OnInit {
   }
 
   finalizePayment() {
-    
     this.showNotification = false;
     this.router.navigate(['/momo']);
   }
@@ -130,7 +139,4 @@ export class PaymentComponent implements OnInit {
     const seconds = this.countdownTime % 60;
     this.timeLeft = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
-
-  
-
 }

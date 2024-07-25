@@ -28,6 +28,10 @@ export class ProductService {
     return this.http.get(API_ENDPOINT.concat('/product/getProductTypeAll'));
   }
 
+  // getProductTypeAll(): Observable<any> {
+  //   return this.http.get(API_ENDPOINT.concat('/product/getProductTypeAll'));
+  // }
+
   saveImage(formData: FormData, productId: any): Observable<any> {
     return this.http.post<any>(API_ENDPOINT.concat(`/product/saveImage/${productId}`), formData);
   }
@@ -98,6 +102,16 @@ export class ProductService {
     return this.http.get<any[]>('/api/products');
   }
   
+  getProductTypeByProductId(productId: number): Observable<any> {
+    return this.http.get(API_ENDPOINT.concat(`/product/getProductTypeByProductId?productId=${productId}`));
+  }
+  
+  
+  getProductTypeById(productId: number): Observable<any> {
+    return this.http.get(API_ENDPOINT.concat(`/product/getProductTypeById?productId=${productId}`));
+  }
+  
+
 }
 
  

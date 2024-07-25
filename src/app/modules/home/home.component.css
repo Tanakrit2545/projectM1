@@ -1,0 +1,129 @@
+/* Header for the shop */
+.shop-header {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  margin-bottom: 20px;
+}
+
+.shop-header h1 {
+  font-size: 2.5em;
+  margin: 0;
+  color: #333;
+}
+
+.shop-header .slogan {
+  font-size: 1.5em;
+  margin: 10px 0;
+  color: #555;
+}
+
+.shop-header .description {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: #777;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Container for the showroom */
+.showroom-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Container for product cards with horizontal scroll */
+.product-display {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+/* Individual product card */
+.product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s;
+  width: 300px;
+  text-align: center;
+  margin: 20px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Container for product images */
+/* Container for product images */
+.product-image-container {
+  position: relative;
+  overflow: hidden;
+  height: 200px; /* Adjust as needed */
+}
+
+.product-image {
+  display: flex;
+}
+
+/* Ensure images fit the container without distortion */
+.product-image img {
+  width: 100%; /* Make image fill the container width */
+  height: 100%; /* Make image fill the container height */
+  object-fit: cover; /* Maintain aspect ratio, fill the container */
+}
+
+
+/* Product information */
+.product-info {
+  padding: 15px;
+}
+
+.product-info h3 {
+  font-size: 1.5em;
+  margin: 0;
+  color: #333;
+}
+
+.product-info p {
+  font-size: 1.2em;
+  margin: 5px 0;
+  color: #777;
+}
+
+/* Button styling */
+.product-info button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.product-info button:hover {
+  background-color: #0056b3;
+}
+
+/* Hover effect */
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card:hover .product-image img {
+  filter: none;
+  opacity: 1;
+}
+
+.product-card:hover {
+  z-index: 1;
+}

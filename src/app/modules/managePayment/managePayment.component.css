@@ -1,54 +1,185 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7f6;
+}
+
 .manage-payment {
-    width: 80%;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .payment-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .payment-table th,
-  .payment-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  .payment-table th {
-    background-color: #f4f4f4;
-  }
-  
-  .payment-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .payment-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  button {
-    padding: 5px 10px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #ddd;
-  }
-  
-  button:active {
-    background-color: #ccc;
-  }
-  
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.manage-payment h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.payment-table thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.payment-table th, .payment-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.payment-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.payment-table .text-center {
+  text-align: center;
+}
+
+.payment-table .btn {
+  margin: 0 5px;
+}
+
+/* Edit Payment Modal Styles */
+.edit-payment-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+
+.edit-payment-modal h3 {
+  margin: 0 0 20px;
+  color: #007bff;
+  font-size: 28px;
+  text-align: center;
+}
+
+.edit-payment-modal form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+}
+
+.edit-payment-modal .form-group {
+  margin-bottom: 15px;
+}
+
+.edit-payment-modal .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.edit-payment-modal .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.edit-payment-modal .form-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+.edit-payment-modal .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.edit-payment-modal .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.edit-payment-modal .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.edit-payment-modal .btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.edit-payment-modal .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+
+.confirm-modal, .slip-preview, .notification {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-modal .modal-header, .slip-preview .modal-header, .notification .modal-header {
+  background: #007bff;
+  color: #fff;
+  padding: 15px;
+}
+
+.confirm-modal .modal-body, .slip-preview .modal-body, .notification .modal-body {
+  padding: 20px;
+}
+
+.confirm-modal .modal-footer, .slip-preview .modal-footer, .notification .modal-footer {
+  padding: 15px;
+  text-align: right;
+}
+
+.slip-preview img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.notification {
+  top: 20px;
+  right: 20px;
+}
+
+.notification .alert {
+  margin: 0;
+}
+
+.notification .alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.notification .alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}

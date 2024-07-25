@@ -15,7 +15,6 @@ interface CartItem {
   imageUrl: string; // Add this line
 }
 
-// 
 @Injectable({
   providedIn: 'root'
 })
@@ -33,18 +32,15 @@ export class CartService {
     return this.http.get(API_ENDPOINT.concat('/api/cart/getAllcart'));
   }
 
-  getByIdCart(cartId: any): Observable<any> {
-    return this.http.get<CartItem[]>(API_ENDPOINT.concat(`/api/cart/getById?cartId=${cartId}`));
+  getByIdCart(cartId: string): Observable<any> { // Adjusted parameter type to string
+    return this.http.get<any>(`${API_ENDPOINT}/api/cart/getById?cartId=${cartId}`);
   }
 
   addCartItem(cartItem: CartItem): void {
     this.cartItems.push(cartItem);
   }
 
-  deleteCartItem(id: number): Observable<void> {
-    this.cartItems = this.cartItems.filter(item => item.id !== id);
-    return of(); // Replace with actual HTTP call if necessary
-  }
+
 
   setQrCodeImage(imagePath: string): void {
     this.qrCodeImage = imagePath;
@@ -61,7 +57,7 @@ export class CartService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>(API_ENDPOINT.concat('/api/cart/save'), body, httpOptions);
+    return this.http.post<any>(`${API_ENDPOINT}/api/cart/save`, body, httpOptions);
   }
 
   savePayment(data: any): Observable<any> {
@@ -71,6 +67,22 @@ export class CartService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>(API_ENDPOINT.concat('/api/payment/save'), body, httpOptions);
+    return this.http.post<any>(`${API_ENDPOINT}/api/payment/save`, body, httpOptions);
   }
+
+  updateCartItem(cartItem: CartItem): Observable<any> {
+    const body = JSON.stringify(cartItem);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.put<any>(`${API_ENDPOINT}/api/cart/update/${cartItem.id}`, body, httpOptions);
+  }
+
+  deleteCartItem(id: number): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINT}/api/cart/delete?cartId=${id}`);
+  }
+  
+
 }

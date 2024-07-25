@@ -7,7 +7,7 @@
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li *ngIf="null == userDetail"><a [routerLink]="['/login']" routerLinkActive="router-link-active"  class="nav-link px-2 text-white">หน้าหลัก</a></li>
-        <li *ngIf="null != userDetail"><a [routerLink]="['/dashbord-admin']" routerLinkActive="router-link-active"  class="nav-link px-2 text-white">หน้าหลัก</a></li>
+        <li *ngIf="null != userDetail"><a [routerLink]="['/home']" routerLinkActive="router-link-active"  class="nav-link px-2 text-white">หน้าหลัก</a></li>
         <li *ngIf="null != userDetail"><a [routerLink]="['/profile']" routerLinkActive="router-link-active"  class="nav-link px-2 text-white">โปรไฟล์</a></li>
 
         <li *ngIf="null != userDetail"><a [routerLink]="['/momo']" routerLinkActive="router-link-active"  class="nav-link px-2 text-white">สินค้า</a></li>

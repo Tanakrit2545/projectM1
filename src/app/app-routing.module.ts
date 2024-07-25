@@ -67,6 +67,9 @@ const routes: Routes = [
       path: 'order/:id',
       component: OrderComponent
     },{
+      path: 'order',
+      component: OrderComponent
+    },{
       path: 'payment',
       component: PaymentComponent
     },{ path: '', redirectTo: '/manage-motorcycle',
