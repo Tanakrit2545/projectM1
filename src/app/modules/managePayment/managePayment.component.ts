@@ -20,6 +20,13 @@ export class ManagePaymentComponent implements OnInit {
   selectedSlip: string | null = null; // To store the selected slip image for preview
   editingPayment: any = null; // To store payment details being edited
 
+  // Define status colors
+  statusColors: { [key: string]: string } = {
+    'ชำระเงินสำเร็จ': 'success',
+    'รอการตรวจสอบยืนยัน': 'warning',
+    'สลิปปลอม': 'danger'
+  };
+
   constructor(private paymentService: PaymentService) {}
 
   ngOnInit() {
@@ -50,8 +57,10 @@ export class ManagePaymentComponent implements OnInit {
 
   saveEdit() {
     if (this.editingPayment) {
+      console.log('Editing Payment:', this.editingPayment); // Log data to verify
       this.paymentService.updatePaymentItem(this.editingPayment.id, this.editingPayment).subscribe({
-        next: () => {
+        next: (response) => {
+          console.log('Update Response:', response); // Log response to verify
           this.paymentSuccess = true;
           setTimeout(() => {
             this.showNotification = false;
@@ -60,17 +69,20 @@ export class ManagePaymentComponent implements OnInit {
           }, 2000);
         },
         error: (error: HttpErrorResponse) => {
+          console.error('Error updating payment:', error.message); // Log error
           this.paymentFailure = true;
           setTimeout(() => {
             this.showNotification = false;
           }, 2000);
-          console.error('Error updating payment:', error.message);
         }
       });
     }
   }
+  
+  
 
   confirmDelete(paymentId: number) {
+    console.log('Confirm delete called for ID:', paymentId);
     this.selectedPaymentId = paymentId;
     this.showConfirmModal = true;
   }
@@ -82,31 +94,25 @@ export class ManagePaymentComponent implements OnInit {
 
   deletePayment() {
     if (this.selectedPaymentId !== null) {
-      this.showNotification = true;
-      this.processingPayment = true;
-
       this.paymentService.deletePaymentItem(this.selectedPaymentId).subscribe({
         next: () => {
+          this.paymentSuccess = true;
+          this.showNotification = true;
           setTimeout(() => {
-            this.processingPayment = false;
-            this.paymentSuccess = true;
-            setTimeout(() => {
-              this.showNotification = false;
-              this.filteredPaymentList = this.paymentList.filter(payment => payment.id !== this.selectedPaymentId);
-              this.closeConfirmModal();
-            }, 2000);
+            this.showNotification = false;
+            this.loadPayments(); // รีโหลดข้อมูลการชำระเงินหลังจากลบ
           }, 2000);
         },
         error: (error: HttpErrorResponse) => {
-          this.processingPayment = false;
           this.paymentFailure = true;
+          this.showNotification = true;
           setTimeout(() => {
             this.showNotification = false;
-            this.closeConfirmModal();
           }, 2000);
           console.error('Error deleting payment:', error.message);
         }
       });
+      this.closeConfirmModal();
     }
   }
 
@@ -118,5 +124,10 @@ export class ManagePaymentComponent implements OnInit {
 
   closeSlipPreview() {
     this.selectedSlip = null;
+  }
+
+  // Get status color for badge
+  getStatusColor(status: string) {
+    return this.statusColors[status as keyof typeof this.statusColors] || 'secondary';
   }
 }

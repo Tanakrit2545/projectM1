@@ -1,7 +1,5 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 <div class="manage-payment">
-  <h2>Manage Payments</h2>
+  <h2>จัดการการชำระเงิน</h2>
   
   <div class="search-container">
     <input 
@@ -14,49 +12,35 @@
     <button 
       class="btn btn-primary" 
       (click)="onSearch()">
-      <i class="fas fa-search"></i> Search
+      <i class="fas fa-search"></i> ค้นหา
     </button>
   </div>
   
   <table class="payment-table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>User</th>
-        <th>Status Payment</th>
-        <th>Price</th>
-        <th>Date</th>
-        <!-- <th class="text-center">Image</th> -->
-        <th class="text-center">Actions</th>
+        <th>รหัสชำระเงิน</th>
+        <th>ผู้ใช้</th>
+        <th>สถานะการชำระเงิน</th>
+        <th>ราคา</th>
+        <th>วันที่ชำระ</th>
+        <th class="text-center">เครื่องมือ</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let pay of filteredPaymentList" (click)="viewSlipPreview(pay)">
         <td>{{ pay.id }}</td>
         <td>{{ pay.userId }}</td>
-        <td>{{ pay.statusPayment }}</td>
-        <!-- <td> -->
-          <!-- <ng-container [ngSwitch]="pay.statusPayment">
-            <span *ngSwitchCase="'Paid'" class="badge badge-success">
-              <i class="fas fa-check-circle"></i> Paid
-            </span>
-            <span *ngSwitchCase="'Pending'" class="badge badge-warning">
-              <i class="fas fa-clock"></i> Pending
-            </span>
-            <span *ngSwitchCase="'Failed'" class="badge badge-danger">
-              <i class="fas fa-times-circle"></i> Failed
-            </span> -->
-            <!-- <span *ngSwitchDefault class="badge badge-secondary">Unknown Status</span> -->
-          <!-- </ng-container> -->
-        <!-- </td> -->
+        <td>
+          <span [ngClass]="'badge badge-' + getStatusColor(pay.statusPayment)">
+            {{ pay.statusPayment }}
+          </span>
+        </td>
         <td>{{ pay.pricePayment }} ฿</td>
         <td>{{ pay.createDate | date: 'dd/MM/yyyy' }}</td>
-        <!-- <td class="text-center">
-          <img *ngIf="pay.slipImage" [src]="pay.slipImage" alt="Slip Image" class="img-thumbnail" />
-        </td> -->
         <td class="text-center">
-          <button class="btn btn-warning" (click)="editPayment(pay)">Edit</button>
-          <button class="btn btn-danger" (click)="confirmDelete(pay.id)">Delete</button>
+          <button class="btn btn-warning" (click)="editPayment(pay); $event.stopPropagation()">แก้ไข</button>
+          <button class="btn btn-danger" (click)="confirmDelete(pay.id); $event.stopPropagation()">ลบ</button>
         </td>
       </tr>
     </tbody>
@@ -65,27 +49,26 @@
 
 <!-- Edit Payment Form -->
 <div *ngIf="editingPayment" class="edit-payment-modal">
-  
   <form (ngSubmit)="saveEdit()">
-    <h3>Edit Payment</h3>
     <div class="form-group">
-      <label for="userId">User ID</label>
+      <h3>แก้ไข การชำระเงิน</h3>
+      <label for="userId">ไอดีผู้ใช้</label>
       <input id="userId" [(ngModel)]="editingPayment.userId" name="userId" class="form-control" required />
     </div>
     <div class="form-group">
-      <label for="statusPayment">Status Payment</label>
+      <label for="statusPayment">สถานะการชำระเงิน</label>
       <input id="statusPayment" [(ngModel)]="editingPayment.statusPayment" name="statusPayment" class="form-control" required />
     </div>
     <div class="form-group">
-      <label for="pricePayment">Price</label>
+      <label for="pricePayment">ราคา</label>
       <input id="pricePayment" [(ngModel)]="editingPayment.pricePayment" name="pricePayment" class="form-control" type="number" required />
     </div>
     <div class="form-group">
-      <label for="createDate">Date</label>
+      <label for="createDate">วันที่ชำระ</label>
       <input id="createDate" [(ngModel)]="editingPayment.createDate" name="createDate" type="date" class="form-control" required />
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="button" class="btn btn-secondary" (click)="editingPayment = null">Cancel</button>
+    <button type="submit" class="btn btn-primary">บันทึก</button>
+    <button type="button" class="btn btn-secondary" (click)="editingPayment = null">ยกเลิก</button>
   </form>
 </div>
 
