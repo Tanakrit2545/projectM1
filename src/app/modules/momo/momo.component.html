@@ -2,7 +2,7 @@
     <!-- Product List -->
     <div class="row product-container">
         <div class="col-md-12">
-            <h2>Product List</h2>
+            <h2>สินค้าทั้งหมด</h2>
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-list">
@@ -16,10 +16,10 @@
                                         <div class="col-md-8">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ product.productName }}</h5>
-                                                <p class="card-text">Price: {{ product.price | currency }}</p>
-                                                <p class="card-text">Type: {{ getProductType(product) }}</p>
-                                                <p class="card-text">Quantity: {{ product.quantity || 0 }}</p>
-                                                <button class="btn btn-primary mr-2" (click)="addToCart(product)">Add to Cart</button>
+                                                <p class="card-text">ราคา: {{ product.price | currency }}</p>
+                                                <p class="card-text">ประเภท: {{ getProductType(product) }}</p>
+                                                <p class="card-text">จำนวน: {{ product.quantity || 0 }}</p>
+                                                <button class="btn btn-primary mr-2" (click)="addToCart(product)">เพิ่มไปยังตะกร้า</button>
                                             </div>
                                         </div>
                                     </div>
@@ -37,7 +37,7 @@
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Shopping Cart</h5>
+                    <h5 class="card-title">ตะกร้า</h5>
                     <ul class="list-group">
                         <li class="list-group-item cart-item" *ngFor="let item of cart">
                             <div class="row">
@@ -46,20 +46,20 @@
                                 </div>
                                 <div class="col-md-9">
                                     <h3>{{ item.productName }}</h3>
-                                    <p>Price: {{ item.price | currency }}</p>
+                                    <p>ราคา: {{ item.price | currency }}</p>
                                     <div class="quantity-controls ml-auto">
                                         <button class="btn btn-sm btn-outline-primary increment ml-2" (click)="incrementQuantity(item)">+</button>
                                         <span>{{ item.quantity }}</span>
                                         <button class="btn btn-sm btn-outline-primary decrement mr-2" (click)="decrementQuantity(item)">-</button>
-                                        <button class="btn btn-sm btn-danger remove ml-2" (click)="removeFromCart(item.productId)">Remove</button>
+                                        <button class="btn btn-sm btn-danger remove ml-2" (click)="removeFromCart(item.productId)">ลบ</button>
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <li class="list-group-item">Total: {{ calculateCartTotal() | currency }}</li>
                     </ul>
-                    <button class="btn btn-success checkout-button mt-3" (click)="checkout()">Checkout</button>
-                    <button class="btn btn-secondary mt-3 refresh-cart-button" (click)="refreshCart()">Refresh Cart</button>
+                    <button class="btn btn-success checkout-button mt-3" (click)="checkout()">เช็คเอาท์</button>
+                    <button class="btn btn-secondary mt-3 refresh-cart-button" (click)="refreshCart()">รีเฟรช</button>
                 </div>
             </div>
 

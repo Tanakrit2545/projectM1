@@ -168,10 +168,24 @@ export class MomoComponent implements OnInit, OnDestroy {
     const totalPrice = this.calculateCartTotal();
   
     // Update QR code image based on total cart price
-    if (totalPrice === 1200) {
+    if (totalPrice === 1000) {
+      this.qrCodeImage = './assets/images/1000.png';
+    } else if (totalPrice === 1200) {
       this.qrCodeImage = './assets/images/1200.png';
-    } else if (totalPrice === 2400) {
+    }else if (totalPrice === 2000) {
+      this.qrCodeImage = './assets/images/2000.png';
+    }else if (totalPrice === 2200) {
+      this.qrCodeImage = './assets/images/2200.png';
+    }else if (totalPrice === 2400) {
       this.qrCodeImage = './assets/images/2400.png';
+    }else if (totalPrice === 3000) {
+      this.qrCodeImage = './assets/images/3000.png';
+    }else if (totalPrice === 3200) {
+      this.qrCodeImage = './assets/images/3200.png';
+    }else if (totalPrice === 3400) {
+      this.qrCodeImage = './assets/images/3400.png';
+    }else if (totalPrice === 3600) {
+      this.qrCodeImage = './assets/images/3600.png';
     } else {
       this.qrCodeImage = ''; // No QR code for other totals
     }
